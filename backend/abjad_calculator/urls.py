@@ -1,7 +1,8 @@
 from django.urls import path
-from .views import AbjadCalculateFA
+from .views import AbjadCalculate, PersianWordSearchView
 
 app_name = 'abjad_calculator'
 urlpatterns = [
-    path('calculator/', AbjadCalculateFA.as_view(), name='calculator')
+    path('calculator/', AbjadCalculate.as_view(), name='calculator'),
+    path('search/<str:word>/', PersianWordSearchView.as_view(), name='persian_word_search'),
 ]

@@ -34,9 +34,9 @@ def abjad_clalc_FA(word):
         vasit_number += dictionary.vasit_abjad[i]
 
     box_data = {
-        'kabir': {'word': new_word, 'kabir_number': kabir_number, 'letters': kabir_letters, 'list_kabir_number': list_kabir_number},
-        'saghit': {'word': new_word, 'saghit_number': saghit_number, 'letters': saghit_letters, 'list_saghit_number': list_saghit_number},
-        'vasit': {'word': new_word, 'vasit_number': vasit_number, 'letters': vasit_letters, 'list_vasit_number': list_vasit_number},
+        'kabir': {'word': new_word, 'abjad_number': kabir_number, 'letters': kabir_letters, 'list_abjad_number': list_kabir_number},
+        'saghit': {'word': new_word, 'abjad_number': saghit_number, 'letters': saghit_letters, 'list_abjad_number': list_saghit_number},
+        'vasit': {'word': new_word, 'abjad_number': vasit_number, 'letters': vasit_letters, 'list_abjad_number': list_vasit_number},
     }
 
     obj, create = PersianWord.objects.get_or_create(
@@ -44,11 +44,7 @@ def abjad_clalc_FA(word):
 
     obj.search += 1
     obj.save()
-
-    objects = PersianWord.objects.filter(kabir_abjad=obj.kabir_abjad)
-    table_data = serializers.PersianWordSerilaizer(objects, many=True).data
-
-    return {'input': new_word, 'box_data': box_data, 'table_data': table_data}
+    return {'input': new_word, 'box_data': box_data}
 
 
 def abjad_clalc_EN(word):
@@ -93,9 +89,5 @@ def abjad_clalc_EN(word):
 
     obj.search += 1
     obj.save()
-
-    objects = EnglishWord.objects.filter(abjad_hebrew=obj.abjad_hebrew)
-    table_data = serializers.EnglishWordSerilaizer(objects, many=True).data
-
-    return {'input': new_word, 'box_data': box_data, 'table_data': table_data}
+    return {'input': new_word, 'box_data': box_data}
 

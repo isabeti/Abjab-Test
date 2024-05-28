@@ -6,7 +6,7 @@ static
 __pycache__
 db.sqlite3
 media
-data
+# data
 # big.txt
 postgres_data
 node_modules

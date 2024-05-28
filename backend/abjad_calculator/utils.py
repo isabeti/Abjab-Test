@@ -2,7 +2,7 @@ from . import dictionary
 from .models import PersianWord, EnglishWord
 from . import serializers
 
-def abjad_clalc_FA(word):
+def abjad_clalc_FA(word, calculate=False):
     new_word = ''
     kabir_letters = []
     list_kabir_number = []
@@ -42,12 +42,13 @@ def abjad_clalc_FA(word):
     obj, create = PersianWord.objects.get_or_create(
         word=new_word, kabir_abjad=kabir_number, saghir_abjad=saghit_number, vasit_abjad=vasit_number)
 
-    obj.search += 1
-    obj.save()
+    if calculate == True:
+        obj.search += 1
+        obj.save()
     return {'input': new_word, 'box_data': box_data}
 
 
-def abjad_clalc_EN(word):
+def abjad_clalc_EN(word, calculate=False):
     new_word = ''
     hebrew_letters = []
     list_hebrew_numbers = []
@@ -79,15 +80,15 @@ def abjad_clalc_EN(word):
         simple_number += dictionary.abjad_simple[i.lower()]
 
     box_data = {
-        'hebrew': {'word': new_word, 'hebrew_number': hebrew_number, 'letters': hebrew_letters, 'list_hebrew_numbers': list_hebrew_numbers},
-        'english': {'word': new_word, 'english_number': english_number, 'letters': english_letters, 'list_english_numbers': list_english_numbers},
-        'simple': {'word': new_word, 'simple_number': simple_number, 'letters': simple_letters, 'list_simple_numbers': list_simple_numbers},
+        'hebrew': {'word': new_word, 'abjad_number': hebrew_number, 'letters': hebrew_letters, 'list_abjad_number': list_hebrew_numbers},
+        'english': {'word': new_word, 'abjad_number': english_number, 'letters': english_letters, 'list_abjad_number': list_english_numbers},
+        'simple': {'word': new_word, 'abjad_number': simple_number, 'letters': simple_letters, 'list_abjad_number': list_simple_numbers},
     }
-
     obj, create = EnglishWord.objects.get_or_create(
         word=new_word, abjad_hebrew=hebrew_number, abjad_english=english_number, abjad_simple=simple_number)
-
-    obj.search += 1
-    obj.save()
+        
+    if calculate == True:
+        obj.search += 1
+        obj.save()
     return {'input': new_word, 'box_data': box_data}
 

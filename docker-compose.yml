@@ -1,55 +1,17 @@
 version: "3.8"
 services:
-  backend:
-    volumes:
-      - static:/static
-    build: ./backend
-    env_file:
-      - ./backend/.env
-    depends_on:
-      - db
-    expose:
-      - 8000
-    networks:
-      - dev-network
-
-  frontend:
-    build: ./frontend
-    expose:
-      - 3000
-    networks:
-      - dev-network
-
-  nginx:
-    build: ./nginx
-    volumes:
-      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
-      - static:/static
-    container_name: nginx
-    ports:
-      - 80:80
-    tty: true
-    restart: "on-failure"
-    depends_on:
-      - backend
-      - frontend
-    networks:
-      - dev-network
   db:
     image: postgres
     volumes:
       - ./data/db:/var/lib/postgresql/data
     environment:
-      - POSTGRES_DB=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-    container_name: postgres_db
+      - POSTGRES_DB=mydb
+      - POSTGRES_USER=myuser
+      - POSTGRES_PASSWORD=mypassword
+    ports:
+      - "5433:5432"
     networks:
       - dev-network
-
-volumes:
-  static:
-
 networks:
   dev-network:
       driver: bridge

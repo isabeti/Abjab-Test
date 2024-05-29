@@ -81,7 +81,7 @@ from django.http import HttpResponse
 
 def fa_inset_db(request):
     word_list = []
-    file_path = 'Persian-Words-Database/distinct_words.txt'  # مسیر فایل را تعیین کنید
+    file_path = 'words/distinct_words.txt'  # مسیر فایل را تعیین کنید
     with open(file_path, 'r', encoding='utf-8') as file:
         lines = file.readlines()
         for line in lines:
@@ -110,7 +110,7 @@ def fa_delete_db(request):
 
 def en_inset_db(request):
     word_list = []
-    file_path = 'Persian-Words-Database/en_words.txt'  # مسیر فایل را تعیین کنید
+    file_path = 'words/en_words.txt'  # مسیر فایل را تعیین کنید
     with open(file_path, 'r', encoding='utf-8') as file:
         lines = file.readlines()
         for line in lines:
